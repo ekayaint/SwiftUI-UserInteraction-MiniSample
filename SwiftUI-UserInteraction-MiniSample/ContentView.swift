@@ -8,12 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var alert = false
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        VStack(spacing: 100) {
+            Button("Alert") {
+                alert = true
+            }.alert("Title",isPresented: $alert, actions: {
+                Button("Cancel", role: .cancel, action: {
+                    print("Cancel selected.")
+                })
+                
+                Button("Ok", role: .destructive, action: {
+                    print("Ok selected.")
+                })
+            }, message: { Text("Sample Content Text") })
+            
+            
+            Button("Action Shhet") {
+                
+            }
+            
+            Text("Context Menu")
         }
         .padding()
     }
