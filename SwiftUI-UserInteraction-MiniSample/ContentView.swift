@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var alert = false
+    @State private var actionSheet = false
+    
     var body: some View {
         VStack(spacing: 100) {
             Button("Alert") {
@@ -24,11 +26,35 @@ struct ContentView: View {
             }, message: { Text("Sample Content Text") })
             
             
-            Button("Action Shhet") {
-                
+            Button("Action Sheet") {
+                actionSheet = true
+            }.actionSheet(isPresented: $actionSheet) {
+                ActionSheet(title: Text("Title"), message: Text("Sample Text"),
+                    buttons: [
+                        .default(Text("Cancel"),action: {
+                            print("Cancel Selected")
+                        }),
+                        .destructive(Text("Ok"),action: {
+                            print("Ok Selected")
+                        })
+                    ]
+                )
             }
             
             Text("Context Menu")
+                .contextMenu{
+                    Button {
+                        print("Take Photo")
+                    }label: {
+                        Label("Take Photo", systemImage: "camera")
+                    }
+                    
+                    Button {
+                        print("Record Video")
+                    }label: {
+                        Label("Record Video", systemImage: "video")
+                    }
+                }
         }
         .padding()
     }
